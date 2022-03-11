@@ -1,39 +1,34 @@
 package productos;
 
-public class Producto implements Comparable<Object> {
-	private String nombre;
-	private int precio;
-
-	public Producto(String nombre, int precio) {
+public abstract class Producto implements Comparable<Object> {
+	protected final String nombre;
+	//Por qué es el precio es un int?
+	protected final int precio;
+	protected static final String SEPARADOR = " /// ";
+	//Para qué el constructor?
+	protected Producto(String nombre, int precio) {
 		this.nombre = nombre;
 		this.precio = precio;
 	}
-
+	//Se usan todos los metodos?
 	public String getNombre() {
 		return nombre;
 	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public double getPrecio() {
+	public int getPrecio() {
 		return precio;
-	}
-
-	public void setPrecio(int precio) {
-		this.precio = precio;
 	}
 
 	@Override
 	public int compareTo(Object o) {
-		Producto Obj = (Producto) o;
+		Producto obj = (Producto) o;
 
 		/*
 		 * Si el precio del producto es menor que el precio de Obj retorna el resultado en
 		 * un (numero negativo), si es mayor retorna el resultado en un numero positivo
 		 */
-		return (int) (this.precio - Obj.getPrecio());
+		return (this.precio - obj.getPrecio());
 	}
+
+	public abstract String toString();
 
 }
