@@ -1,43 +1,34 @@
 package supermercadoDeBarrio;
 
-import java.util.ArrayList;
-
+import java.util.List;
 import productos.*;
+import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.toList;
 
+//Se te ocurre un nombre mas descriptivo para la clase?
 public class ListaDeProductos {
-	private ArrayList<Producto> lista;
+    //List
+    private List<Producto> lista;
 
-	public void cargarListaDeProductos() {
-		lista = new ArrayList<Producto>();
-		Bebida bebida1 = new Bebida("Coca-Cola Zero", 20, 1.5);
-		Bebida bebida2 = new Bebida("Coca-Cola", 18, 1.5);
-		Shampoo shampoo1 = new Shampoo("Shampoo Sedal", 19, 500);
-		Fruta frutilla1 = new Fruta("Frutillas", 64, "kilo");
+    //En que otro lugar podr√≠a estar la carga de los productos?
+    public void cargarListaDeProductos() {
+        Bebida bebida1 = new Bebida("Coca-Cola Zero", 20, 1.5);
+        Bebida bebida2 = new Bebida("Coca-Cola", 18, 1.5);
+        Shampoo shampoo1 = new Shampoo("Shampoo Sedal", 19, 500);
+        Fruta frutilla1 = new Fruta("Frutillas", 64, "kilo");
 
-		lista.add(bebida1);
-		lista.add(bebida2);
-		lista.add(shampoo1);
-		lista.add(frutilla1);
-	}
+        lista = asList(bebida1, bebida2, shampoo1, frutilla1);
+    }
 
-	public void mostrarListaDeProductosPorConsola() {
-		Producto mayor = lista.get(0);
-		Producto menor = lista.get(0);
+    public void mostrarListaDeProductosPorConsola() {
+        lista.stream().forEachOrdered(this::mostrarProducto);
+        List<Producto> productosOrdenados = lista.stream().sorted().collect(toList());
+        System.out.println("Producto m√°s barato: " + productosOrdenados.get(0));
+        System.out.println("Producto m√°s caro: " + productosOrdenados.get(productosOrdenados.size() - 1));
+    }
 
-		for (Producto p : lista) {
-			System.out.println(p.toString());
-
-			// Busca el menor y el mayor
-			if (p.compareTo(menor) < 0) {
-				menor = p;
-			} else if (p.compareTo(mayor) > 0) {
-				mayor = p;
-			}
-		}
-
-		System.out.println("=============================");
-		System.out.println("Producto m·s caro: " + mayor.getNombre());
-		System.out.println("Producto m·s barato: " + menor.getNombre());
-	}
+    private void mostrarProducto(Producto producto) {
+        System.out.println(producto);
+    }
 
 }
